@@ -1,17 +1,14 @@
-import pytest
-from main import iniciar_sistema
+from unittest.mock import patch
+from menu.Menu import menu
 
 
-def test_iniciar_sistema_imprime_mensaje(capsys: pytest.CaptureFixture[str]) -> None:
-    """
-    Prueba que la función principal imprima exactamente el mensaje de bienvenida.
-    """
-    # 1. Ejecutamos la función que queremos probar
-    iniciar_sistema()
+def test_iniciar_sistema_imprime_mensaje(capsys):
+    # Usamos 'patch' para evitar que el Controlador intente leer el JSON real
+    with patch("controlador.controller.Controlador._cargar_datos"):
+        # Simulamos una entrada para que el menú se cierre rápido (opción 5: Salir)
+        with patch("builtins.input", return_value="5"):
+            menu()
 
-    # 2. Capturamos lo que la función escribió en la terminal
-    captura = capsys.readouterr()
-
-    # 3. Comprobamos (assert) que el texto sea el esperado.
-    # Nota: La función print() de Python siempre añade un salto de línea (\n) al final.
-    assert captura.out == "¡Bienvenido al sistema!\n"
+    captured = capsys.readouterr()
+    assert "SISTEMA DE GESTIÓN HOTELERA" in captured.out
+    assert "¡Hasta pronto!" in captured.out
