@@ -1,8 +1,5 @@
-# main.py
-def iniciar_sistema() -> None:
-    print("¡Bienvenido al sistema!")
+from menu.Menu import menu
 
 
-# Comentario de prueba
 if __name__ == "__main__":
-    iniciar_sistema()
+    menu()
