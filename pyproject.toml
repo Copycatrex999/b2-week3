@@ -48,7 +48,7 @@ ignore_missing_imports = true
 
 # Para el Bloque 2, mantenemos esto en 'false'. Si lo cambias a 'true',
 # el programa fallará si a un alumno se le olvida poner '-> str' o ': int'
-# en CUALQUIER método. (Puedes activarlo al final del cuatrimestre como reto).
+# en CUALQUIER metodo.(Puedes activarlo al final del cuatrimestre como reto).
 disallow_untyped_defs = false
 
 
