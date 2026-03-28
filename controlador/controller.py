@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Union,Optional
 
 from tipos.Habitacion import Habitacion
 from tipos.Deluxe import HabitacionDeluxe
@@ -64,7 +64,8 @@ class Controlador:
                 json.dump(datos_iniciales, archivo, indent=4, ensure_ascii=False)
 
     def _cargar_datos(self) -> None:
-
+        #intenta carcar el JSON  de forma segura.s
+        self._inicializar_datos() #se asegura de que exista antes de leer
         try:
             with open(self.archivo_json, "r", encoding="utf-8") as archivo:
                 datos: Dict[str, Any] = json.load(archivo)
