@@ -3,10 +3,7 @@ from .Habitacion import Habitacion
 
 class HabitacionDeluxe(Habitacion):
     COSTO_EXTRA = 15.0
-    DESCRIPCION = (
-        "Cama King size, balcón con vista y minibar "
-        "(Cargo extra de $15)."
-    )
+    DESCRIPCION = "Cama King size, balcón con vista y minibar " "(Cargo extra de $15)."
 
     def __init__(
         self,
