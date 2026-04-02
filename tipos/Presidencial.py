@@ -3,10 +3,7 @@ from .Habitacion import Habitacion
 
 class HabitacionPresidencial(Habitacion):
     COSTO_EXTRA = 100.0
-    DESCRIPCION = (
-        "Penthouse completo con chef privado "
-        "(Cargo extra de $100)."
-    )
+    DESCRIPCION = "Penthouse completo con chef privado " "(Cargo extra de $100)."
 
     def __init__(
         self,
