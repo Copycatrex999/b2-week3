@@ -2,9 +2,6 @@ from abc import ABC, abstractmethod
 from typing import Dict, Any
 
 
-# ==========================================
-# CLASES DE HABITACIONES
-# ==========================================
 class Habitacion(ABC):
     def __init__(
         self,
@@ -13,10 +10,9 @@ class Habitacion(ABC):
         precio_noche: float,
         descripcion: str,
         estado: str = "disponible",
-        huesped: str = "",
+        huesped: str | None = None,
         noches: int = 0,
-    ):
-
+    ) -> None:
         self.numero = numero
         self.tipo = tipo
         self.precio_noche = precio_noche
@@ -25,36 +21,48 @@ class Habitacion(ABC):
         self.huesped = huesped
         self.noches = noches
 
-    @abstractmethod  # Esto obliga a las subclases a implementarlo
+    @abstractmethod
     def calcular_total(self) -> float:
-        pass
+        raise NotImplementedError
 
-    def esta_disponible(self):
+    def esta_disponible(self) -> bool:
         return self.estado == "disponible"
 
     def ocupar(self, nombre_huesped: str, cantidad_noches: int) -> None:
+        if not self.esta_disponible():
+            raise ValueError("La habitación ya está ocupada")
+
+        if cantidad_noches <= 0:
+            raise ValueError("Las noches deben ser mayores a 0")
+
         self.estado = "ocupada"
         self.huesped = nombre_huesped
         self.noches = cantidad_noches
 
     def liberar(self) -> None:
         self.estado = "disponible"
-        self.huesped = ""
+        self.huesped = None
         self.noches = 0
 
     def to_dict(self) -> Dict[str, Any]:
         return {
+            "numero": self.numero,
             "tipo": self.tipo,
             "precio_noche": self.precio_noche,
+            "descripcion": self.descripcion,
             "estado": self.estado,
             "huesped": self.huesped,
             "noches": self.noches,
         }
 
-    def __str__(self):
-        texto: str = f"[{self.numero}] {self.tipo.upper()} - ${self.precio_noche}/noche\n"
-        texto += f"      Info: {self.descripcion}\n"
-        texto += f"      Estado: {self.estado.upper()}"
-        if not self.esta_disponible():
-            texto += f" (Huésped: {self.huesped})"
-        return texto + "\n"
+    def __str__(self) -> str:
+        base = (
+            f"[{self.numero}] {self.tipo.upper()} - ${self.precio_noche}/noche\n"
+            f"      Info: {self.descripcion}\n"
+            f"      Estado: {self.estado.upper()}"
+        )
+
+        if not self.esta_disponible() and self.huesped:
+            base += f" (Huésped: {self.huesped})"
+
+        return base + "\n"
