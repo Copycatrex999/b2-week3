@@ -15,8 +15,8 @@ class menu:
     def ejecutar_menu(self) -> None:
         while True:
             print("\n === SISTEMA DE GESTIÓN HOTELERA === ")
-            print("1. Ver TODAS las tipos")
-            print("2. Ver tipos DISPONIBLES")
+            print("1. Ver TODAS las habitaciones")
+            print("2. Ver habitaciones DISPONIBLES")
             print("3. Realizar Check-in")
             print("4. Realizar Check-out (Salida y cobro)")
             print("5. Salir")
