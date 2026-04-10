@@ -2,17 +2,27 @@ from .Habitacion import Habitacion
 
 
 class HabitacionSuite(Habitacion):
+    PORCENTAJE_EXTRA = 0.10
+    DESCRIPCION = "Jacuzzi y room service premium (Cargo extra del 10%)."
+
     def __init__(
         self,
         numero: str,
         precio_noche: float = 200.0,
         estado: str = "disponible",
-        huesped: str = "",
+        huesped: str | None = None,
         noches: int = 0,
     ) -> None:
-        descripcion: str = "Jacuzzi y room service premium (Cargo extra del 10%)."
-        super().__init__(numero, "Suite", precio_noche, descripcion, estado, huesped, noches)
+        super().__init__(
+            numero=numero,
+            tipo="Suite",
+            precio_noche=precio_noche,
+            descripcion=self.DESCRIPCION,
+            estado=estado,
+            huesped=huesped,
+            noches=noches,
+        )
 
     def calcular_total(self) -> float:
-        costo_base: float = self.noches * self.precio_noche
-        return costo_base + (costo_base * 0.10)
+        costo_base = self.noches * self.precio_noche
+        return costo_base * (1 + self.PORCENTAJE_EXTRA)
